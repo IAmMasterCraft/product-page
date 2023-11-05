@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link :to="`/${ generateSlug }`" class="inline-block w-64 m-2.5 custom-pulse relative">
+    <nuxt-link :to="`/${ generateSlug }`" class="inline-block w-full md:w-64 m-2.5 custom-pulse relative">
       <div class="bg-white rounded-2xl p-4 shadow-xl cursor-pointer">
         <div class="max-w-full h-auto my-10">
           <img
@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  name: 'ProductItemComponent',
   props: {
     product: {
       type: Object,

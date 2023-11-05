@@ -21,6 +21,6 @@
 
 <script>
 export default {
-  name: 'BaseHeader'
+  name: 'BaseHeaderComponent'
 };
 </script>

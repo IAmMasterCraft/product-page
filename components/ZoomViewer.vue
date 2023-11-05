@@ -1,43 +1,70 @@
 <template>
-  <div class="zoom-viewer" v-if="isOpen">
-    <div class="zoom-content">
-      <button class="close-button" @click="closeViewer">Close</button>
-
-      <div class="tabs">
-        <button @click="switchTo('images')" :class="{ active: activeTab === 'images' }">Images</button>
-        <button @click="switchTo('videos')" :class="{ active: activeTab === 'videos' }">Videos</button>
+  <div class="">
+    <div class="">
+      <div class="flex w-full border-b">
+        <button
+          @click="switchTo('videos')"
+          :class="{
+            'text-blue-900 border-b-[1px] border-[#ffd811]':
+              activeTab === 'videos',
+          }"
+          class="mx-4 py-2 focus:outline-none uppercase"
+        >
+          Videos
+        </button>
+        <button
+          @click="switchTo('images')"
+          :class="{
+            'text-blue-900 border-b-[1px] border-[#ffd811]':
+              activeTab === 'images',
+          }"
+          class="mx-4 py-2 focus:outline-none uppercase text-gray-700"
+        >
+          Images
+        </button>
       </div>
 
-      <div class="viewer">
+      <div class="w-full min-h-[30rem] flex justify-center items-center overflow-hidden">
         <template v-if="activeTab === 'images'">
-          <img
-            :src="selectedMedia"
-            alt="Zoomed Image"
-            @click="zoomOut"
-            @mouseover="zoomIn"
-            @mouseleave="zoomOut"
-          />
-          <div class="thumbnails">
-            <div v-for="image in product.images" :key="image.id">
-              <img :src="image.thumbnail" @click="selectMedia(image.standard)" />
+          <div class="w-full flex flex-col justify-between items-center gap-10">
+            <div class="max-w-[30rem]">
+              <img
+                :src="selectedMedia"
+                class="object-contain max-h-[10rem] hover:cursor-zoom-in transition-all duration-500 ease-in-out"
+                :class="{ 'hover:cursor-zoom-out': scale >= 2 }"
+                alt="Zoomed Image"
+                @click="zoomMedia"
+              />
+            </div>
+            <div class="flex justify-center items-center gap-3 mt-16">
+              <div
+                v-for="(image, index) in thumbnails"
+                :key="`thumbnails-pop-${index}`"
+                class="hover:shadow-lg hover:border-[1px] hover:border-[#c53030] cursor-pointer p-2 rounded-md"
+                :class="{ 'border-[1px] border-[#c53030]': activeThumbnail(image) }"
+                @click="selectMedia(image)"
+              >
+                <img :src="image" />
+              </div>
             </div>
           </div>
         </template>
 
         <template v-else>
-          <video
-            ref="videoPlayer"
-            controls
-            :src="selectedMedia"
-            @click="zoomOut"
-            @mouseover="zoomIn"
-            @mouseleave="zoomOut"
-          ></video>
-          <div class="thumbnails">
-            <div v-for="video in product.videos" :key="video.id">
-              <img :src="video.thumbnail" @click="selectMedia(video.source)" />
+          <div class="w-full flex flex-col justify-between">
+            <div class="max-w-[30rem]">
+              <video
+                ref="videoPlayer"
+                controls
+              ></video>
+            </div>
+            <div class="">
+              <div v-for="(video, index) in videoList" :key="`video-${index}`">
+                <img :src="video" @click="selectMedia(video)" />
+              </div>
             </div>
           </div>
+
         </template>
       </div>
     </div>
@@ -46,92 +73,52 @@
 
 <script>
 export default {
+  name: "ZoomViewerComponent",
   props: {
-    product: Object,
-    isOpen: Boolean,
-    activeTab: String,
+    product: {
+      type: Object,
+      required: true,
+    },
+    selectedMedia: {
+      type: String,
+      required: true,
+    },
+    thumbnails: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
-      selectedMedia: '',
       zoomedIn: false,
+      activeTab: "images",
+      scale: 1,
     };
   },
-  methods: {
-    // Methods remain the same as in the previous code
+  computed: {
+    videoList() {
+      return this.product.videos ? this.product.videos : [];
+    },
   },
+  methods: {
+    switchTo(tab) {
+      this.activeTab = tab;
+    },
+    activeThumbnail(thumbnail) {
+      const mediaName = this.selectedMedia.replace("-large.jpeg", "-thumbnail.jpeg");
+      return mediaName === thumbnail;
+    },
+    selectMedia(media) {
+      this.$emit("update-media", media);
+    },
+    zoomMedia(event) {
+      this.scale = (this.scale < 2) ? this.scale + 0.5 : 1;
+      const target = event.target;
+      target.style.transform = `scale(${ this.scale })`;
+    }
+  },
+  mounted() {
+    // console.log(this.selectedMedia);
+  }
 };
 </script>
-
-<style scoped>
-.zoom-viewer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.zoom-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.tabs button {
-  background: none;
-  border: none;
-  font-size: 16px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.tabs button.active {
-  font-weight: bold;
-  border-bottom: 2px solid #007bff;
-}
-
-.viewer img,
-.viewer video {
-  max-width: 100%;
-  height: auto;
-}
-
-.thumbnails {
-  display: flex;
-  justify-content: center;
-}
-
-.thumbnails img {
-  width: 60px;
-  height: 40px;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-/* You can further customize these styles as needed */
-</style>

@@ -21,6 +21,7 @@
 
 <script>
 export default {
+  name: 'ProductVideoComponent',
   props: {
     product: Object, // The product data, including videos
   },
