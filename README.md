@@ -13,7 +13,6 @@ This is a Single Product page with Image Zoom feature which enhances the user ex
 - [Usage](#usage)
 - [Customization](#customization)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Project Overview
 
@@ -97,10 +96,7 @@ To run the application locally, follow these steps:
 Contributing
 If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. I welcome contributions that improve the project's functionality, performance, and user experience.
 
-License
-This project is licensed under the MIT License.
-
 Feel free to explore, modify, and extend this project to create your own magic.
 
-For questions, issues, or additional documentation, please contact the [IAmMasterCraft](https://github.com/IAmMasterCraft).
+For questions, issues, or additional documentation, please contact [IAmMasterCraft](https://github.com/IAmMasterCraft).
 
