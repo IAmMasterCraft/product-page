@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="bg-white shadow w-full min-h-[30rem] flex flex-col justify-center items-center gap-10"
+      class="bg-white shadow w-full min-h-[32rem] flex flex-col justify-center items-center gap-10"
     >
       <div class="flex justify-between items-center h-full w-full overflow-hidden">
         <span
@@ -38,6 +38,19 @@
         >
           <img :src="thumbnail" />
         </div>
+      </div>
+      <div class="italic text-center text-xs text-gray-600" v-show="!zoomedIn">
+        <span class="hidden md:block">
+          Hover over a particular section of the image to zoom in<br />
+          Move your mouse over to other parts to zoom in<br />
+          Move your mouse away from the image to zoom out<br />
+          Use left/right arrow keys to navigate between images<br />
+          Click on the image to view the image in a popup modal
+        </span>
+        <span class="md:hidden">
+          Swipe left/right to navigate between images<br />
+          Tap on the image to view the image in a popup modal
+        </span>
       </div>
     </div>
 

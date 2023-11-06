@@ -9,7 +9,7 @@
       <div class="modal-overlay absolute w-full h-full bg-black opacity-50"></div>
 
       <!-- Modal content -->
-      <div class="modal-container relative w-full md:w-3/4 lg:w-2/3 xl:w-4/5 mx-auto my-12 p-6 bg-white rounded-lg shadow-lg">
+      <div class="modal-container relative w-11/12 md:w-3/4 lg:w-2/3 xl:w-4/5 mx-auto my-12 p-6 bg-white rounded-lg shadow-lg">
         <!-- Close button -->
         <button
           @click="closeModal"

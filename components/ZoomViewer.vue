@@ -47,6 +47,16 @@
                 <img :src="image" />
               </div>
             </div>
+            <div class="italic text-center text-xs text-gray-600" v-show="scale === 1">
+              <span class="hidden md:block">
+                Use left/right arrow keys to navigate between images<br />
+                Click on the image to zoom in or out, up to 2x
+              </span>
+              <span class="md:hidden">
+                Swipe left/right to navigate between images<br />
+                Tap on the image to zoom in or out, up to 2x
+              </span>
+            </div>
           </div>
         </template>
 
