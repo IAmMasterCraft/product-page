@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link :to="`/${ generateSlug }`" class="w-full md:w-64 m-2.5 custom-pulse">
+    <nuxt-link :to="`/${ generateSlug }`" class="m-2.5 custom-pulse">
       <div class="bg-white rounded-2xl p-4 shadow-xl cursor-pointer relative">
         <div class="max-w-full h-auto my-10">
           <img
