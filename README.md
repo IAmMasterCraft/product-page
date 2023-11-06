@@ -1,69 +1,106 @@
-# single-product-page
+# SINGLE PRODUCT PAGE
 
-## Build Setup
+This is a Single Product page with Image Zoom feature which enhances the user experience on an E-commerce website by allowing customers to interact with product images and videos.
 
-```bash
-# install dependencies
-$ yarn install
+## Table of Contents
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+- [Project Overview](#project-overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Application Structure](#application-structure)
+- [Components and Pages](#components-and-pages)
+- [Usage](#usage)
+- [Customization](#customization)
+- [Contributing](#contributing)
+- [License](#license)
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+## Project Overview
 
-# generate static project
-$ yarn generate
-```
+This project is built with Nuxt 2, a popular Vue.js framework, and includes the following key features and components:
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+- **Default Layout**: A base layout for the project, providing a common structure and styling for pages.
 
-## Special Directories
+- **Index Page**: The main landing page that displays a grid of product items.
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+- **Product Page**: A dynamic page for displaying detailed information about a specific product, including images and product details.
 
-### `assets`
+- **Product Components**: Several components, such as `ProductImage`, `ProductInfo`, `ProductItem`, `ProductVideo`, and `ZoomViewer`, are used to create a detailed product view that enbales user to interact with the products media.
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+- **Base Components**: The project also includes base components like `BaseHeader` and `BaseModal` used for common UI elements.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+## Getting Started
 
-### `components`
+### Prerequisites
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+Before you can run the application, ensure that you have the following dependencies installed on your system:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+- Node.js
+- NPM (Node Package Manager) or Yarn
 
-### `layouts`
+### Installation
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+1. Clone the project repository from GitHub:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+   ```bash
+   git clone https://github.com/IAmMasterCraft/product-page.git
+   ```
+  
+2. Change into the project directory:
+
+   ```bash
+   cd e-commerce-project
+   ```
+
+3. Install the project dependencies using NPM or Yarn:
+
+   ```bash
+   npm install
+   ```
+    OR
+   ```bash
+   npm install
+   ```
+
+## Application Structure
+
+The project follows a modular structure with components and pages organized into separate files. Here's a brief overview of the project structure:
+
+- layouts/: Contains the DefaultLayout used as the base layout for the application.
+- pages/: Includes the main application pages, such as the index and dynamic product pages.
+- components/: Houses various components used throughout the project, including product-related components and common UI elements.
+- data/: Stores data files, including product information.
 
 
-### `pages`
+## Components and Pages
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+The project includes the following key components and pages:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+- Default Layout: The base layout used as a template for pages.
+- Index Page: The main landing page for the e-commerce project, displaying a grid of product items.
+- Product Page: A dynamic page that provides detailed information about a specific product, including images and product details.
+- Product Components: Components used to create a detailed product view, including ProductImage, ProductInfo, ProductItem, ProductVideo, and ZoomViewer.
+- Base Components: Common components for UI elements, such as the BaseHeader and BaseModal.
 
-### `plugins`
+## Usage
+To run the deployed application, visit [https://product-page-cyan.vercel.app/](https://product-page-cyan.vercel.app/).
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+To run the application locally, follow these steps:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+1. Ensure you have completed the [installation](#installation) steps.
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open your web browser and visit http://localhost:3000 to view the application.
 
-### `static`
+Contributing
+If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. I welcome contributions that improve the project's functionality, performance, and user experience.
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+License
+This project is licensed under the MIT License.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+Feel free to explore, modify, and extend this project to create your own magic.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+For questions, issues, or additional documentation, please contact the [IAmMasterCraft](https://github.com/IAmMasterCraft).
 
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).

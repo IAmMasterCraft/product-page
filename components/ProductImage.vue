@@ -184,7 +184,7 @@ export default {
 
       this.debounceTimeout = setTimeout(() => {
         this.updateImagePosition(event);
-      }, 500); // Adjust the debounce delay as needed
+      }, 500);
     },
   },
   mounted(){

@@ -23,37 +23,32 @@
 export default {
   name: 'ProductVideoComponent',
   props: {
-    product: Object, // The product data, including videos
+    product: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
-      selectedVideo: '', // Currently selected video
-      zoomedIn: false, // Flag for video zoom
+      selectedVideo: '',
+      zoomedIn: false,
     };
   },
   methods: {
     selectVideo(video) {
-      // Update the selected video
       this.selectedVideo = video.source;
     },
     openZoomViewer() {
-      // Open the ZoomViewer component with the selected video
-      // You'll implement this functionality later
+      //
     },
     zoomIn() {
-      // Implement video zoom-in logic
       this.zoomedIn = true;
-      this.$refs.videoPlayer.play(); // Auto-play video when zoomed in (optional)
+      this.$refs.videoPlayer.play();
     },
     zoomOut() {
-      // Implement video zoom-out logic
       this.zoomedIn = false;
-      this.$refs.videoPlayer.pause(); // Pause video when zoomed out (optional)
+      this.$refs.videoPlayer.pause();
     },
   },
 };
 </script>
-
-<style scoped>
-/* Add your component-specific styles here */
-</style>
