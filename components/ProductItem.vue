@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nuxt-link :to="`/${ generateSlug }`" class="inline-block w-full md:w-64 m-2.5 custom-pulse relative">
-      <div class="bg-white rounded-2xl p-4 shadow-xl cursor-pointer">
+    <nuxt-link :to="`/${ generateSlug }`" class="w-full md:w-64 m-2.5 custom-pulse">
+      <div class="bg-white rounded-2xl p-4 shadow-xl cursor-pointer relative">
         <div class="max-w-full h-auto my-10">
           <img
             :src="`./${ product.image }`"
@@ -16,9 +16,10 @@
             <div>{{ product.storage }}</div>
           </div>
         </div>
-      </div>
-      <div class="absolute top-0 right-0 bg-[#c53030] text-white p-2 rounded-tr-2xl font-medium text-sm">
-        £ {{ product.price.toFixed(2) }}
+        <!-- price -->
+        <div class="absolute top-0 right-0 bg-[#c53030] text-white p-2 rounded-tr-2xl font-medium text-sm">
+          £ {{ product.price.toFixed(2) }}
+        </div>
       </div>
     </nuxt-link>
   </div>
