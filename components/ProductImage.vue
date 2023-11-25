@@ -1,45 +1,71 @@
 <template>
   <div>
     <div
-      class="bg-white shadow w-full min-h-[32rem] flex flex-col justify-center items-center gap-10"
+      class="bg-white shadow w-full min-h-[32rem] flex flex-col justify-center items-center gap-10 md:p-10"
     >
-      <div class="flex justify-between items-center h-full w-full overflow-hidden">
-        <span
+      <div class="flex justify-between items-center h-full w-full">
+        <button
           class="text-blue-800 font-semibold text-lg cursor-pointer p-2"
           @click="previousImage"
-        >&lt;</span
+        >&lt;</button
         >
         <!-- Display product image -->
-        <img
-          class="max-h-[18rem] w-full object-contain transition-all duration-500 ease-in-out hover:cursor-zoom-in"
-          :style="{ transform: `translate(${imageX}, ${imageY}) scale(${scale})` }"
-          :src="(zoomedIn) ? largeJpeg : selectedImage"
-          :alt="`${ product.phoneName } Product Image`"
-          @mouseover="zoomIn"
+        <div
+          class="w-fit h-full overflow-hidden relative hover:cursor-pointer"
           @mouseleave="zoomOut"
-          @mousemove="debouncedUpdateImagePosition"
-          @click="togglePopup"
-        />
-        <span
+          v-if="mediaType === 'image'"
+        >
+          <img
+            class="max-h-[18rem] w-full object-contain transition-all duration-500 ease-in-out overflow-hidden"
+            :src="selectedImage"
+            :alt="`${ product.phoneName } Product Image`"
+            @mousemove="updateImagePosition"
+            @click="togglePopup"
+          />
+          <!-- mask overlay -->
+          <img
+            class="absolute w-20 h-20 object-contain"
+            :style="`
+              top: ${ overlayY };
+              left: ${ overlayX };
+              transition: transform 0.5s ease;
+            `"
+            src="overlay.gif"
+            :alt="`${ product.phoneName } Product Image`"
+            @click="togglePopup"
+            v-if="onHover"
+          />
+        </div>
+
+        <div
+          class="w-fit h-full"
+          v-else
+        >
+          <video class="max-h-full w-full object-contain" controls>
+            <source :src="selectedVideo" type="video/mp4" />
+          </video>
+        </div>
+
+        <button
           class="text-blue-800 font-semibold text-lg cursor-pointer p-2"
           @click="nextImage"
-        >&gt;</span
+        >&gt;</button
         >
       </div>
 
       <!-- Add thumbnails for image selection -->
-      <div class="flex items-center justify-center gap-3">
+      <div class="flex items-center justify-center gap-5">
         <div
           v-for="(thumbnail, index) in thumbnails"
           :key="`thumbnail_${index}`"
-          class="hover:shadow-lg hover:border-[1px] hover:border-[#c53030] cursor-pointer p-2 rounded-md"
-          :class="{ 'border-[1px] border-[#c53030]': activeThumbnail(thumbnail) }"
-          @click="selectImage(thumbnail)"
+          class="hover:shadow-lg hover:border-[1px] hover:border-[#1e40af] cursor-pointer p-2 rounded-md"
+          :class="{ 'border-[1px] border-[#1e40af]': activeThumbnail(thumbnail) }"
+          @mouseover="selectImage(thumbnail)"
         >
-          <img :src="thumbnail" />
+          <img :src="thumbnail.thumbnail" />
         </div>
       </div>
-      <div class="italic text-center text-xs text-gray-600" v-show="!zoomedIn">
+      <div class="italic text-center text-xs text-gray-600 hidden" v-show="!zoomedIn">
         <span class="hidden md:block">
           Hover over a particular section of the image to zoom in<br />
           Move your mouse over to other parts to zoom in<br />
@@ -58,7 +84,7 @@
       @toggle-popup="togglePopup"
       v-if="showPopup"
     >
-      <zoom-viewer
+      <zoom-viewer-old
         :product="product"
         :selected-media="largeJpeg"
         :thumbnails="thumbnails"
@@ -80,18 +106,36 @@ export default {
   data() {
     return {
       selectedImage: this.product.image,
+      selectedVideo: this.product.videos[0],
       zoomedIn: false,
       touchStartX: null,
       imageX: '0px',
       imageY: '0px',
-      scale: 1,
+      overlayX: '0px',
+      overlayY: '0px',
       debounceTimeout: null,
       showPopup: false,
+      onHover: false,
+      mediaType: 'image',
     };
   },
   computed: {
     thumbnails() {
-      return this.product.imageList.thumbnails;
+      const imageThumbnails = this.product.imageList.thumbnails.map(image => (
+        {
+          thumbnail: image,
+          file: image.replace("-thumbnail", ""),
+          type: 'image',
+        })
+      );
+      const videoThumbnails = this.product.videos.map(video => (
+        {
+          thumbnail: 'video-thumbnail.png',
+          file: video,
+          type: 'video',
+        })
+      );
+      return [...imageThumbnails, ...videoThumbnails];
     },
     originalResolution() {
       return this.product.imageList.originalResolution;
@@ -101,8 +145,15 @@ export default {
     }
   },
   methods: {
-    selectImage(image) {
-      this.selectedImage = image.replace("-thumbnail", "");
+    selectImage(thumbnail) {
+      if (thumbnail.type === 'video') {
+        this.selectedVideo = thumbnail.file;
+        this.mediaType = 'video';
+        console.log(this.selectedVideo);
+        return;
+      }
+      this.selectedImage = thumbnail.file.replace("-thumbnail", "");
+      this.mediaType = 'image';
     },
     activeThumbnail(thumbnail) {
       const imageName = this.selectedImage.replace(".jpeg", "-thumbnail.jpeg");
@@ -156,15 +207,15 @@ export default {
       this.showPopup = !this.showPopup;
     },
     zoomIn() {
-      this.zoomedIn = true;
+      // this.onHover = true;
     },
     zoomOut() {
+      this.onHover = false;
       this.imageX = '0px';
       this.imageY = '0px';
-      this.scale = 1;
-      clearTimeout(this.debounceTimeout);
-      this.debounceTimeout = null;
-      this.zoomedIn = false;
+      this.overlayX = '0px';
+      this.overlayY = '0px';
+      this.$emit('zoom-in', false);
     },
     updateImagePosition(event) {
       const container = event.target;
@@ -173,9 +224,21 @@ export default {
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
 
+
       this.imageX = -((x - rect.width / 2) ) + 'px';
-      this.imageY = -((y - rect.height / 2) ) + 'px';
-      this.scale = 2;
+      this.imageY = -((y - rect.height / 2) + 100) + 'px';
+      this.overlayX = ((x - rect.width / 2) + 90) + 'px';
+      this.overlayY = ((y - rect.height / 2) + 100) + 'px';
+      this.overlayX = ((x - rect.width / 2) + 100) + 'px';
+      this.overlayY = ((y - rect.height / 2) + 100) + 'px';
+      console.log(event.clientX, event.clientY, rect.left, rect.top, x, y, this.imageX, this.imageY, this.overlayX, this.overlayY)
+
+      this.onHover = true;
+      this.$emit('zoom-in', {
+        image: this.largeJpeg,
+        imageX: this.imageX,
+        imageY: this.imageY,
+      });
     },
     debouncedUpdateImagePosition(event) {
       if (this.debounceTimeout) {
@@ -184,7 +247,7 @@ export default {
 
       this.debounceTimeout = setTimeout(() => {
         this.updateImagePosition(event);
-      }, 500);
+      }, 200);
     },
   },
   mounted(){

@@ -26,6 +26,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "Apple",
@@ -54,6 +59,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "Google",
@@ -82,6 +92,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "OnePlus",
@@ -110,6 +125,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "Xiaomi",
@@ -138,6 +158,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "Sony",
@@ -166,6 +191,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "LG",
@@ -194,6 +224,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
   {
     manufacturer: "Huawei",
@@ -222,6 +257,11 @@ const phoneList = [
         "product-image-back.jpeg",
       ],
     },
+    videos: [
+      "single-click-zoom-desktop.mp4",
+      "double-tap-zoom-mobile.mp4",
+      "drag-swipe-in-mobile.mp4",
+    ],
   },
 ];
 
