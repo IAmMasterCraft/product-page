@@ -8,13 +8,11 @@
       v-if="isZoomedIn"
     >
       <div
-        class="w-full h-full object-contain"
+        class="absolute w-full h-full object-contain"
         :style="`
-          background-image: url(${zoomedImage});
+          background: url(${zoomedImage});
           background-position: ${zoomedImageOnX} ${zoomedImageOnY};
-          background-size: cover;
           background-repeat: no-repeat;
-          transform: scale(1.20);
         `"
       ></div>
     </div>
@@ -35,8 +33,8 @@ export default {
   data () {
     return {
       isZoomedIn: false,
-      zoomedImageOnX: "0px",
-      zoomedImageOnY: "0px",
+      zoomedImageOnX: "0%",
+      zoomedImageOnY: "0%",
       zoomedImage: null,
     };
   },
