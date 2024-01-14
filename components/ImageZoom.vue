@@ -1,6 +1,6 @@
 <template>
   <div class="image-zoom-container relative w-full min-h-[22rem] flex justify-center items-center">
-    <div class="relative mx-10" @click="openPopup">
+    <div class="relative mx-10" @click="openPopup" ref="media_container">
       <img v-if="isImage" :src="media" class="max-h-[20rem] w-auto" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave"  ref="image" />
       <video v-else-if="!isImage" :src="media" class="max-h-[20rem] w-auto" controls ref="media"></video>
       <div v-if="zoomed" :style="zoomStyles" class="zoom-lens absolute bg-gray-500 border"></div>
@@ -104,14 +104,14 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('keydown', this.handleKeydown);
-    this.$refs.image.removeEventListener('touchstart', this.handleTouchStart, false);
-    this.$refs.image.removeEventListener('touchmove', this.handleTouchMove, false);
+    this.$refs.media_container.removeEventListener('touchstart', this.handleTouchStart, false);
+    this.$refs.media_container.removeEventListener('touchmove', this.handleTouchMove, false);
   },
 
   mounted() {
     window.addEventListener('keydown', this.handleKeydown);
-    this.$refs.image.addEventListener('touchstart', this.handleTouchStart, false);
-    this.$refs.image.addEventListener('touchmove', this.handleTouchMove, false);
+    this.$refs.media_container.addEventListener('touchstart', this.handleTouchStart, false);
+    this.$refs.media_container.addEventListener('touchmove', this.handleTouchMove, false);
   },
 };
 </script>

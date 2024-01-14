@@ -3,7 +3,7 @@
     class="popup-viewer fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
   >
     <div
-      class="h-full w-[55rem] bg-white shadow-lg mx-20 max-h-[33rem] relative"
+      class="h-full w-full md:w-[55rem] bg-white shadow-lg m-5 md:my-0 md:mx-20 max-h-[90%] md:max-h-[33rem] relative"
     >
       <!-- Close Button -->
       <button
@@ -16,7 +16,7 @@
       <!-- Tabs for Desktop View -->
       <div class="flex gap-5 w-full border-b transition-all duration-300 ease-in-out">
         <div
-          class="py-3 px-10 cursor-pointer hover:border-b hover:border-b-blue-800 hover:font-semibold hover:text-blue-800"
+          class="py-3 px-8 cursor-pointer hover:border-b hover:border-b-blue-800 hover:font-semibold hover:text-blue-800"
           :class="{
             'border-b border-b-blue-800 font-semibold text-blue-800': isImage,
           }"
@@ -25,7 +25,7 @@
           Images
         </div>
         <div
-          class="py-3 px-10 cursor-pointer hover:border-b hover:border-b-blue-800 hover:font-semibold hover:text-blue-800"
+          class="py-3 px-8 cursor-pointer hover:border-b hover:border-b-blue-800 hover:font-semibold hover:text-blue-800"
           :class="{
             'border-b border-b-blue-800 font-semibold text-blue-800': !isImage,
           }"
@@ -37,16 +37,17 @@
 
       <!-- Media Display -->
       <div class="media-display p-4 border-b h-full w-full">
-        <div class="flex gap-10 w-full overflow-hidden">
-          <div class="w-2/3 h-[25rem] overflow-hidden">
+        <div class="flex flex-col md:flex-row gap-10 w-full overflow-hidden">
+          <div class="w-full md:w-2/3 h-[25rem] overflow-hidden">
             <img
               v-if="isImage"
               :src="media"
               class="max-h-[100%] max-w-[100%] object-contain m-auto block"
-              :class="{'cursor-zoom-in': !zoomed, 'cursor-zoom-out scale-[2]': zoomed}"
+              :class="{'cursor-zoom-in': !zoomed, 'cursor-zoom-out scale-[3]': zoomed}"
               @click="toggleZoom"
               @touchend="handleDoubleTap"
               @mousemove="handleMouseMove"
+              ref="image"
               :style="zoomStyles"
             />
             <div v-else-if="!isImage" class="relative pt-[56.25%]">
@@ -57,7 +58,7 @@
               ></video>
             </div>
           </div>
-          <div class="w-1/3">
+          <div class="w-full md:w-1/3">
             <product-info :product="product" :forPopup="true" class="w-full" />
             <!-- Thumbnails for Images -->
             <thumbnails :thumbnails="imageThumbnails" :currentMediaSource="mediaSource" @thumbnailSelected="thumbnailSelected" v-if="isImage" />
@@ -125,12 +126,36 @@ export default {
     selectTab(tab) {
       this.$emit("switchTab", tab);
     },
-    toggleZoom() {
+    toggleZoom(event) {
       this.zoomed = !this.zoomed;
+      if (this.zoomed) this.handleMouseMove(event);
+    },
+    handleInteraction(event) {
+      if (!this.zoomed) return;
+      let clientX, clientY;
+      if (event.type === 'click') {
+        ({ clientX, clientY } = event);
+      } else if (event.type === 'touchend') {
+        if (event.touches.length > 0) {
+          clientX = event.touches[0].clientX;
+          clientY = event.touches[0].clientY;
+        } else {
+          return;
+        }
+      }
+
+      const rect = this.$refs.image.getBoundingClientRect();
+      const x = ((clientX - rect.left) / rect.width) * 100;
+      const y = ((clientY - rect.top) / rect.height) * 100;
+
+      this.zoomStyles = {
+        transformOrigin: `${x}% ${y}%`
+      };
+      this.zoomed = true;
     },
     handleMouseMove(event) {
       if (!this.zoomed) return;
-      const rect = event.target.getBoundingClientRect();
+      const rect = this.$refs.image.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width) * 100;
       const y = ((event.clientY - rect.top) / rect.height) * 100;
       this.zoomStyles = {
@@ -141,7 +166,7 @@ export default {
       const currentTime = new Date().getTime();
       const tapLength = currentTime - this.lastTap;
       if (tapLength < 300 && tapLength > 0) {
-        const imgRect = event.target.getBoundingClientRect();
+        const imgRect = this.$refs.image.getBoundingClientRect();
         const tapX = event.changedTouches[0].clientX - imgRect.left;
         const tapY = event.changedTouches[0].clientY - imgRect.top;
         const zoomX = (tapX / imgRect.width) * 100;
