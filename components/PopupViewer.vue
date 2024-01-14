@@ -172,7 +172,7 @@ export default {
         const zoomX = (tapX / imgRect.width) * 100;
         const zoomY = (tapY / imgRect.height) * 100;
         this.zoomStyles = {
-          transform: 'scale(2)',
+          // transform: 'scale(2)',
           transformOrigin: `${zoomX}% ${zoomY}%`,
         };
       }
