@@ -53,6 +53,14 @@ export default {
       popupMedia: "product-image-large.jpeg",
     };
   },
+  // watch this.product.image
+  watch: {
+    "product.image": function () {
+      // if it is not image on mobile select image tab
+      const viewPort = window.innerWidth;
+      if (!this.isImage && viewPort < 768) this.switchPopupTab('Images');
+    },
+  },
   computed: {
     imageThumbnails() {
       const imageThumbnails = this.product.imageList.thumbnails.map(

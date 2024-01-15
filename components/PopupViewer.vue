@@ -149,9 +149,7 @@ export default {
     media() {
       // if it is not image on mobile select image tab
       const viewPort = window.innerWidth;
-      if (!this.isImage && viewPort < 768) {
-        this.selectTab('Images')
-      }
+      if (!this.isImage && viewPort < 768) this.selectTab('Images');
     },
   },
   methods: {

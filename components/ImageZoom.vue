@@ -14,7 +14,7 @@
       <video
         v-else-if="!isImage"
         :src="media"
-        class="max-h-[20rem] w-auto media"
+        class="hidden md:block max-h-[20rem] w-auto media"
         @mousemove="handleMouseMove"
         @mouseleave="handleMouseLeave"
         controls
