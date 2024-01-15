@@ -6,7 +6,7 @@
       <img
         v-if="isImage"
         :src="media"
-        class="max-h-[20rem] w-auto"
+        class="max-h-[20rem] w-auto media"
         @mousemove="handleMouseMove"
         @mouseleave="handleMouseLeave"
         ref="image"
@@ -14,7 +14,7 @@
       <video
         v-else-if="!isImage"
         :src="media"
-        class="max-h-[20rem] w-auto"
+        class="max-h-[20rem] w-auto media"
         controls
         ref="media"
       ></video>
@@ -166,5 +166,8 @@ export default {
 .zoom-lens {
   cursor: zoom-out;
   pointer-events: none;
+}
+.media {
+  transition: opacity 0.5s ease-in-out;
 }
 </style>

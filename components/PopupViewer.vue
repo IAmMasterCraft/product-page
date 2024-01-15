@@ -3,7 +3,7 @@
     class="popup-viewer fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
   >
     <div
-      class="h-full w-full md:w-[55rem] bg-white shadow-lg m-5 md:my-0 md:mx-20 max-h-[90%] md:max-h-[33rem] relative"
+      class="h-full w-full md:w-[55rem] bg-white shadow-lg m-5 md:my-0 md:mx-20 max-h-[95%] md:max-h-[34rem] relative"
     >
       <!-- Close & Back Button -->
       <button
@@ -53,7 +53,7 @@
             <img
               v-if="isImage"
               :src="media"
-              class="max-h-[100%] max-w-[100%] object-contain m-auto block"
+              class="media max-h-[100%] max-w-[100%] object-contain m-auto block"
               :class="{
                 'cursor-zoom-in': !zoomed,
                 'cursor-zoom-out scale-[3]': zoomed,
@@ -70,7 +70,7 @@
             >
               <video
                 :src="media"
-                class="max-h-[100%] max-w-[100%] m-auto block absolute top-0 left-0 w-full h-full"
+                class="media max-h-[100%] max-w-[100%] m-auto block absolute top-0 left-0 w-full h-full"
                 controls
               ></video>
             </div>
@@ -273,6 +273,6 @@ export default {
 }
 
 .media {
-  transition: "transform 0.3s ease";
+  transition: opacity 0.5s ease-in-out;
 }
 </style>
