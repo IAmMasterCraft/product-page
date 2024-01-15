@@ -48,7 +48,7 @@ Before you can run the application, ensure that you have the following dependenc
 2. Change into the project directory:
 
    ```bash
-   cd e-commerce-project
+   cd product-page
    ```
 
 3. Install the project dependencies using NPM or Yarn:
