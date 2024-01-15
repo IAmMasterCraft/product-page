@@ -11,12 +11,12 @@
       <div class="" v-if="!forPopup">
         <h3 class="leading-tight font-semibold">£{{ product.price.toFixed(2) }}</h3>
       </div>
-      <div class="border-t border-b border-gray-300 md:border-t-2 md:border-b-2 py-5" v-if="!forPopup">
-        <div class="py-3 text-gray-900">
+      <div class="border-t border-b border-gray-300 md:border-t-2 md:border-b-2 py-5">
+        <div class="py-3 text-gray-900" v-if="!forPopup">
           <span class="font-semibold">Sim:</span>
           <span class="uppercase">{{ product.sim }}</span>
         </div>
-        <div class="py-3 text-gray-900">
+        <div class="py-3 text-gray-900" v-if="!forPopup">
           <span class="font-semibold">Condition:</span>
           <span class="uppercase">{{ product.condition }}</span>
         </div>
@@ -24,11 +24,11 @@
           <span class="font-semibold">Color:</span>
           <span class="uppercase">{{ product.color }}</span>
         </div>
-        <div class="py-3 text-gray-900">
+        <div class="py-3 text-gray-900" v-if="!forPopup">
           <span class="font-semibold">Network:</span>
           <span class="uppercase">{{ product.network }}</span>
         </div>
-        <div class="py-3 text-gray-900">
+        <div class="py-3 text-gray-900" v-if="!forPopup">
           <span class="font-semibold">Storage:</span>
           <span class="uppercase">{{ product.storage }}</span>
         </div>

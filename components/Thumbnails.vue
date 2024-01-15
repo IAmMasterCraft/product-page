@@ -1,6 +1,6 @@
 <template>
-  <div class="thumbnails-container hidden md:flex mt-10">
-    <div v-for="(item, index) in thumbnails" :key="index" class="thumbnail cursor-pointer" @click="selectThumbnail(index)">
+  <div class="thumbnails-container flex my-10">
+    <div v-for="(item, index) in thumbnails" :key="index" class="mr-[10px] cursor-pointer" @click="selectThumbnail(index)">
       <img :src="item.thumbnail" class="w-10 h-10 object-cover border hover:border-red-800 rounded-lg p-2" :class="{'border-blue-800': activeThumbnailIndex !== index, 'border-red-800': activeThumbnailIndex === index }" @click="selectThumbnail(index)" />
     </div>
   </div>
@@ -34,8 +34,5 @@ export default {
 };
 </script>
 
-<style>
-.thumbnail {
-  margin-right: 10px;
-}
+<style scoped>
 </style>

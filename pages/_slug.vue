@@ -1,12 +1,35 @@
 <template>
   <div class="flex flex-row my-10 gap-16">
     <div class="flex-1">
-      <div class="flex flex-col justify-between items-center bg-white shadow-lg md:p-10">
+      <div
+        class="flex flex-col justify-between items-center bg-white shadow-lg md:p-10"
+      >
         <!-- Product Image Zoom Component -->
-        <image-zoom :media="mediaSource" @nextMedia="nextMedia" @previousMedia="previousMedia" @openPopup="showPopup" />
+        <image-zoom
+          :media="mediaSource"
+          @nextMedia="nextMedia"
+          @previousMedia="previousMedia"
+          @openPopup="showPopup"
+        />
         <!-- Thumbnails -->
-        <thumbnails :thumbnails="thumbnails" :currentMediaSource="mediaSource" @thumbnailSelected="customMedia" />
-        <popup-viewer v-if="isPopupVisible" :media="popupMedia" :imageThumbnails="imageThumbnails" :videoThumbnails="videoThumbnails" @closePopup="closePopup" :product="product" @thumbnailSelected="customMedia" @switchTab="switchPopupTab" />
+        <thumbnails
+          :thumbnails="thumbnails"
+          :currentMediaSource="mediaSource"
+          @thumbnailSelected="customMedia"
+          class="hidden md:flex"
+        />
+        <popup-viewer
+          v-if="isPopupVisible"
+          :media="popupMedia"
+          :imageThumbnails="imageThumbnails"
+          :videoThumbnails="videoThumbnails"
+          @closePopup="closePopup"
+          :product="product"
+          @thumbnailSelected="customMedia"
+          @switchTab="switchPopupTab"
+          @nextMedia="nextMedia"
+          @previousMedia="previousMedia"
+        />
       </div>
     </div>
     <div class="flex-1">
@@ -19,7 +42,7 @@
 <script>
 import data from "@/data/phone.js";
 export default {
-  name: 'ProductPage',
+  name: "ProductPage",
   asyncData({ params }) {
     const product = data.getPhone(params.slug);
     return { product };
@@ -32,23 +55,21 @@ export default {
   },
   computed: {
     imageThumbnails() {
-      const imageThumbnails = this.product.imageList.thumbnails.map(image => (
-        {
+      const imageThumbnails = this.product.imageList.thumbnails.map(
+        (image) => ({
           thumbnail: image,
           file: image.replace("-thumbnail", ""),
-          type: 'image',
+          type: "image",
         })
       );
       return imageThumbnails;
     },
     videoThumbnails() {
-      const videoThumbnails = this.product.videos.map((video, index) => (
-        {
-          thumbnail: video.replace(".mp4", "-thumbnail.png"),
-          file: video,
-          type: 'video',
-        })
-      );
+      const videoThumbnails = this.product.videos.map((video, index) => ({
+        thumbnail: video.replace(".mp4", "-thumbnail.png"),
+        file: video,
+        type: "video",
+      }));
       return videoThumbnails;
     },
     thumbnails() {
@@ -64,7 +85,7 @@ export default {
 
   methods: {
     nextMedia() {
-      const currentIndex = this.thumbnails.findIndex(thumbnail => {
+      const currentIndex = this.thumbnails.findIndex((thumbnail) => {
         const thumbnailFile = thumbnail.file.replace("-thumbnail", "");
         return thumbnailFile === this.product.image;
       });
@@ -78,7 +99,7 @@ export default {
     },
 
     previousMedia() {
-      const currentIndex = this.thumbnails.findIndex(thumbnail => {
+      const currentIndex = this.thumbnails.findIndex((thumbnail) => {
         const thumbnailFile = thumbnail.file.replace("-thumbnail", "");
         return thumbnailFile === this.product.image;
       });
@@ -103,7 +124,7 @@ export default {
           if (this.isImage) {
             this.product.image = this.product.videos[0];
           } else if (!this.isImage) {
-            const currentIndex = this.product.videos.findIndex(video => {
+            const currentIndex = this.product.videos.findIndex((video) => {
               return video === this.product.image;
             });
             this.product.image = this.product.videos[currentIndex];
@@ -114,10 +135,12 @@ export default {
           if (!this.isImage) {
             this.product.image = this.product.imageList.originalResolution[0];
           } else if (this.isImage) {
-            const currentIndex = this.product.imageList.originalResolution.findIndex(image => {
-              return image === this.product.image;
-            });
-            this.product.image = this.product.imageList.originalResolution[currentIndex];
+            const currentIndex =
+              this.product.imageList.originalResolution.findIndex((image) => {
+                return image === this.product.image;
+              });
+            this.product.image =
+              this.product.imageList.originalResolution[currentIndex];
           }
           break;
       }
@@ -126,13 +149,15 @@ export default {
 
     setPopupMedia() {
       if (this.isImage) {
-        const currentIndex = this.product.imageList.largeImages.findIndex(image => {
-          const imageFile = image.replace("-large", "");
-          return imageFile === this.product.image;
-        });
+        const currentIndex = this.product.imageList.largeImages.findIndex(
+          (image) => {
+            const imageFile = image.replace("-large", "");
+            return imageFile === this.product.image;
+          }
+        );
         this.popupMedia = this.product.imageList.largeImages[currentIndex];
       } else if (!this.isImage) {
-        const currentIndex = this.product.videos.findIndex(video => {
+        const currentIndex = this.product.videos.findIndex((video) => {
           return video === this.product.image;
         });
         this.popupMedia = this.product.videos[currentIndex];
@@ -147,7 +172,7 @@ export default {
     closePopup() {
       this.isPopupVisible = false;
     },
-  }
+  },
 };
 </script>
 <style>

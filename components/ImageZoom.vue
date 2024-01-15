@@ -1,18 +1,41 @@
 <template>
-  <div class="image-zoom-container relative w-full min-h-[22rem] flex justify-center items-center">
+  <div
+    class="image-zoom-container relative w-full min-h-[22rem] flex justify-center items-center"
+  >
     <div class="relative mx-10" @click="openPopup" ref="media_container">
-      <img v-if="isImage" :src="media" class="max-h-[20rem] w-auto" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave"  ref="image" />
-      <video v-else-if="!isImage" :src="media" class="max-h-[20rem] w-auto" controls ref="media"></video>
-      <div v-if="zoomed" :style="zoomStyles" class="zoom-lens absolute bg-gray-500 border"></div>
+      <img
+        v-if="isImage"
+        :src="media"
+        class="max-h-[20rem] w-auto"
+        @mousemove="handleMouseMove"
+        @mouseleave="handleMouseLeave"
+        ref="image"
+      />
+      <video
+        v-else-if="!isImage"
+        :src="media"
+        class="max-h-[20rem] w-auto"
+        controls
+        ref="media"
+      ></video>
+      <div
+        v-if="zoomed"
+        :style="zoomStyles"
+        class="zoom-lens absolute bg-gray-500 border"
+      ></div>
     </div>
     <button
       class="text-blue-800 font-semibold text-lg cursor-pointer p-2 absolute top-1/2 left-0 transform -translate-y-1/2"
       @click="previousMedia"
-    >&lt;</button>
+    >
+      &lt;
+    </button>
     <button
       class="text-blue-800 font-semibold text-lg cursor-pointer p-2 absolute top-1/2 right-0 transform -translate-y-1/2"
       @click="nextMedia"
-    >&gt;</button>
+    >
+      &gt;
+    </button>
   </div>
 </template>
 
@@ -42,7 +65,8 @@ export default {
     handleMouseMove(event) {
       if (!this.isImage) return;
       this.zoomed = true;
-      const { left, top, width, height } = this.$refs.image.getBoundingClientRect();
+      const { left, top, width, height } =
+        this.$refs.image.getBoundingClientRect();
       let x = event.pageX - left;
       let y = event.pageY - top;
       x = Math.max(0, Math.min(x, width));
@@ -55,9 +79,12 @@ export default {
         width: `${zoomWidth}px`,
         height: `${zoomHeight}px`,
         background: `url(${this.media}) no-repeat`,
-        backgroundSize: `${width * this.zoomFactor}px ${height * this.zoomFactor}px`,
+        backgroundSize: `${width * this.zoomFactor}px ${
+          height * this.zoomFactor
+        }px`,
         backgroundPositionX: `-${x * this.zoomFactor - zoomWidth / 2}px`,
         backgroundPositionY: `-${y * this.zoomFactor - zoomHeight / 2}px`,
+        transition: "transform 0.3s ease",
       };
     },
     handleMouseLeave() {
@@ -76,9 +103,9 @@ export default {
     },
 
     handleKeydown(event) {
-      if (event.key === 'ArrowRight') {
+      if (event.key === "ArrowRight") {
         this.nextMedia();
-      } else if (event.key === 'ArrowLeft') {
+      } else if (event.key === "ArrowLeft") {
         this.previousMedia();
       }
     },
@@ -103,15 +130,31 @@ export default {
   },
 
   beforeDestroy() {
-    window.removeEventListener('keydown', this.handleKeydown);
-    this.$refs.media_container.removeEventListener('touchstart', this.handleTouchStart, false);
-    this.$refs.media_container.removeEventListener('touchmove', this.handleTouchMove, false);
+    window.removeEventListener("keydown", this.handleKeydown);
+    this.$refs.media_container.removeEventListener(
+      "touchstart",
+      this.handleTouchStart,
+      false
+    );
+    this.$refs.media_container.removeEventListener(
+      "touchmove",
+      this.handleTouchMove,
+      false
+    );
   },
 
   mounted() {
-    window.addEventListener('keydown', this.handleKeydown);
-    this.$refs.media_container.addEventListener('touchstart', this.handleTouchStart, false);
-    this.$refs.media_container.addEventListener('touchmove', this.handleTouchMove, false);
+    window.addEventListener("keydown", this.handleKeydown);
+    this.$refs.media_container.addEventListener(
+      "touchstart",
+      this.handleTouchStart,
+      false
+    );
+    this.$refs.media_container.addEventListener(
+      "touchmove",
+      this.handleTouchMove,
+      false
+    );
   },
 };
 </script>

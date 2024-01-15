@@ -78,7 +78,7 @@ The project includes the following key components and pages:
 - Default Layout: The base layout used as a template for pages.
 - Index Page: The main landing page for the e-commerce project, displaying a grid of product items.
 - Product Page: A dynamic page that provides detailed information about a specific product, including images and product details.
-- Product Components: Components used to create a detailed product view, including ProductImage, ProductInfo, ProductItem, ProductVideo, and ZoomViewer.
+- Product Components: Components used to create a detailed product view, including ImageZoom, ProductInfo, ProductItem, Thumbnails, and PopupViewer.
 - Base Components: Common components for UI elements, such as the BaseHeader and BaseModal.
 
 ## Usage
