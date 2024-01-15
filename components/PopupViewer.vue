@@ -71,6 +71,7 @@
               <video
                 :src="media"
                 class="media max-h-[100%] max-w-[100%] m-auto block absolute top-0 left-0 w-full h-full"
+                @mousemove="handleMouseMove"
                 controls
               ></video>
             </div>

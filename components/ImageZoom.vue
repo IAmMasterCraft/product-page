@@ -15,6 +15,8 @@
         v-else-if="!isImage"
         :src="media"
         class="max-h-[20rem] w-auto media"
+        @mousemove="handleMouseMove"
+        @mouseleave="handleMouseLeave"
         controls
         ref="media"
       ></video>
