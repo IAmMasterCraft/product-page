@@ -21,7 +21,7 @@
       <div
         v-if="zoomed"
         :style="zoomStyles"
-        class="zoom-lens absolute bg-gray-500 border"
+        class="zoom-lens absolute bg-gray-500 border hidden md:block"
       ></div>
     </div>
     <button
